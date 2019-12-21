@@ -36,6 +36,7 @@ func getInsultData(filename string) models.InsultData {
 }
 
 func (g *insultGenerator) GetInsult(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("Endoint hit: /insult\n")
 	insult_template := "%s %s and %s%s. Now %s."
 	insults := g.data.Insults
 	rand := rand.New(g.rand)
@@ -55,6 +56,7 @@ func (g *insultGenerator) GetInsult(w http.ResponseWriter, r *http.Request) {
 }
 
 func (g *insultGenerator) GetCompliment(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("Endoint hit: /compliemnt\n")
 	compliment_template := "You are %s and %s%s. %s - you're %s."
 	compliments := g.data.Compliments
 	rand := rand.New(g.rand)
@@ -74,6 +76,7 @@ func (g *insultGenerator) GetCompliment(w http.ResponseWriter, r *http.Request) 
 }
 
 func (g *insultGenerator) GetComeback(w http.ResponseWriter, r *http.Request) {
+	fmt.Print("Endoint hit: /comeback\n")
 	comebacks := g.data.Comebacks
 	rand := rand.New(g.rand)
 	message := comebacks[rand.Intn(len(comebacks[0]))]
