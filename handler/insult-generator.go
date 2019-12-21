@@ -11,11 +11,18 @@ import (
 	"github.com/brandenc40/insult-generator/models"
 )
 
+const (
+	// API response statuses
+	ApiSuccess = "SUCCESS"
+	ApiError   = "ERROR"
+)
+
 type insultGenerator struct {
 	data models.InsultData
 	rand rand.Source
 }
 
+// NewInsultGenerator creates a new insultGenerator object
 func NewInsultGenerator() insultGenerator {
 	return insultGenerator{
 		getInsultData("data/insults.json"),
@@ -36,7 +43,7 @@ func getInsultData(filename string) models.InsultData {
 }
 
 func (g *insultGenerator) GetInsult(w http.ResponseWriter, r *http.Request) {
-	fmt.Print("Endoint hit: /insult\n")
+	fmt.Println("Endoint hit: /insult")
 	insult_template := "%s %s and %s%s. Now %s."
 	insults := g.data.Insults
 	rand := rand.New(g.rand)
@@ -49,14 +56,14 @@ func (g *insultGenerator) GetInsult(w http.ResponseWriter, r *http.Request) {
 		insults[4][rand.Intn(len(insults[4]))],
 	)
 	response := models.ApiResponse{
-		Status:  "SUCCESS",
+		Status:  ApiSuccess,
 		Message: message,
 	}
 	json.NewEncoder(w).Encode(response)
 }
 
 func (g *insultGenerator) GetCompliment(w http.ResponseWriter, r *http.Request) {
-	fmt.Print("Endoint hit: /compliemnt\n")
+	fmt.Println("Endoint hit: /compliemnt")
 	compliment_template := "You are %s and %s%s. %s - you're %s."
 	compliments := g.data.Compliments
 	rand := rand.New(g.rand)
@@ -69,19 +76,19 @@ func (g *insultGenerator) GetCompliment(w http.ResponseWriter, r *http.Request) 
 		compliments[4][rand.Intn(len(compliments[4]))],
 	)
 	response := models.ApiResponse{
-		Status:  "SUCCESS",
+		Status:  ApiSuccess,
 		Message: message,
 	}
 	json.NewEncoder(w).Encode(response)
 }
 
 func (g *insultGenerator) GetComeback(w http.ResponseWriter, r *http.Request) {
-	fmt.Print("Endoint hit: /comeback\n")
+	fmt.Println("Endoint hit: /comeback")
 	comebacks := g.data.Comebacks
 	rand := rand.New(g.rand)
 	message := comebacks[rand.Intn(len(comebacks[0]))]
 	response := models.ApiResponse{
-		Status:  "SUCCESS",
+		Status:  ApiSuccess,
 		Message: message,
 	}
 	json.NewEncoder(w).Encode(response)

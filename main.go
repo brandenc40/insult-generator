@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -14,10 +15,14 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		log.Fatal("$PORT must be set")
+		port = "10000"
 	}
 
 	router := mux.NewRouter().StrictSlash(true)
+
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "<H1>Insult generator API</H1>Available endoints are:</br> - /insult</br> - /comeback</br> - /compliment")
+	})
 
 	router.HandleFunc("/insult", insulter.GetInsult).Methods("GET")
 	router.HandleFunc("/comeback", insulter.GetComeback).Methods("GET")
