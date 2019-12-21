@@ -15,6 +15,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	if port == "" {
+		fmt.Println("WARNING: The $PORT env variale is not set, defaulting to 10000")
 		port = "10000"
 	}
 
