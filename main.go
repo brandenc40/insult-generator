@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/brandenc40/insult-generator/handler"
 	"github.com/gorilla/mux"
@@ -12,12 +12,16 @@ import (
 func main() {
 	insulter := handler.NewInsultGenerator()
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
 	router := mux.NewRouter().StrictSlash(true)
 
 	router.HandleFunc("/insult", insulter.GetInsult).Methods("GET")
 	router.HandleFunc("/comeback", insulter.GetComeback).Methods("GET")
 	router.HandleFunc("/compliment", insulter.GetCompliment).Methods("GET")
 
-	fmt.Print("http://localhost:10000/\n")
-	log.Fatal(http.ListenAndServe(":10000", router))
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
