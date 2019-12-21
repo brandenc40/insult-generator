@@ -7,15 +7,18 @@ import (
 	"os"
 
 	"github.com/brandenc40/insult-generator/handler"
+	"github.com/brandenc40/insult-generator/logging"
 	"github.com/gorilla/mux"
 )
 
 func main() {
 	insulter := handler.NewInsultGenerator()
+	logger := logging.NewLogger("main")
+	logger.SetLevel(logging.DEBUG)
 
 	port := os.Getenv("PORT")
 	if port == "" {
-		fmt.Println("WARNING: The $PORT env variale is not set, defaulting to 10000")
+		logger.Warning("The $PORT env variale is not set, defaulting to 10000")
 		port = "10000"
 	}
 
@@ -29,5 +32,6 @@ func main() {
 	router.HandleFunc("/comeback", insulter.GetComeback).Methods("GET")
 	router.HandleFunc("/compliment", insulter.GetCompliment).Methods("GET")
 
+	logger.Debug("Starting app at http://localhost:" + port)
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }

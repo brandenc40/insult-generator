@@ -8,6 +8,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/brandenc40/insult-generator/logging"
 	"github.com/brandenc40/insult-generator/models"
 )
 
@@ -18,15 +19,17 @@ const (
 )
 
 type insultGenerator struct {
-	data models.InsultData
-	rand rand.Source
+	data   models.InsultData
+	rand   rand.Source
+	Logger logging.Logger
 }
 
 // NewInsultGenerator creates a new insultGenerator object
 func NewInsultGenerator() insultGenerator {
 	return insultGenerator{
-		getInsultData("data/insults.json"),
-		rand.NewSource(time.Now().Unix()),
+		data:   getInsultData("data/insults.json"),
+		rand:   rand.NewSource(time.Now().Unix()),
+		Logger: logging.NewLogger("insult-generator"),
 	}
 }
 
@@ -43,7 +46,7 @@ func getInsultData(filename string) models.InsultData {
 }
 
 func (g *insultGenerator) GetInsult(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Endoint hit: /insult")
+	g.Logger.Info("Endoint hit: /insult")
 	insult_template := "%s %s and %s%s. Now %s."
 	insults := g.data.Insults
 	rand := rand.New(g.rand)
@@ -63,7 +66,7 @@ func (g *insultGenerator) GetInsult(w http.ResponseWriter, r *http.Request) {
 }
 
 func (g *insultGenerator) GetCompliment(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Endoint hit: /compliemnt")
+	g.Logger.Info("Endoint hit: /compliemnt")
 	compliment_template := "You are %s and %s%s. %s - you're %s."
 	compliments := g.data.Compliments
 	rand := rand.New(g.rand)
@@ -83,7 +86,7 @@ func (g *insultGenerator) GetCompliment(w http.ResponseWriter, r *http.Request) 
 }
 
 func (g *insultGenerator) GetComeback(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Endoint hit: /comeback")
+	g.Logger.Info("Endoint hit: /comeback")
 	comebacks := g.data.Comebacks
 	rand := rand.New(g.rand)
 	message := comebacks[rand.Intn(len(comebacks[0]))]

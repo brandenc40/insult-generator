@@ -11,3 +11,7 @@ run: build
 clean:
 	@echo "Cleaning up..."
 	@rm insult-generator
+
+go-mod:
+	go mod tidy
+	go mod vendor
