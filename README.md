@@ -9,7 +9,7 @@
 
 #### Running locally:
 ```
-$ cd <path/to/inslt-generator>
+$ cd <path/to/insult-generator>
 $ make run
 ```
 
