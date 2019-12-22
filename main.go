@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/brandenc40/insult-generator/handler"
-	"github.com/brandenc40/insult-generator/loggingogging"
+	"github.com/brandenc40/insult-generator/logging"
 	"github.com/gorilla/mux"
 )
 
