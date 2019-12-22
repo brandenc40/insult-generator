@@ -1,6 +1,6 @@
 # insult-generator
 
-### An API that returns insults, compliements, or comebacks
+### An API that returns insults, compliments, or comebacks
 
 #### Endpoints:
 - /insult
