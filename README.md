@@ -7,8 +7,9 @@
 - /compliment 
 - /comeback
 
-To run locally:
+#### Running locally:
 ```
+$ cd <path/to/inslt-generator>
 $ make run
 ```
 
