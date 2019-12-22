@@ -7,6 +7,11 @@
 - /compliment 
 - /comeback
 
+To run locally:
+```
+$ make run
+```
+
 
 #### Info:
 - Leveraged insults found here: https://www.randominsultgenerator.com/ to create this API.
