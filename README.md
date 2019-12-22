@@ -14,6 +14,7 @@ $ make run
 ```
 
 
-#### Info:
+#### More info:
 - Leveraged insults found here: https://www.randominsultgenerator.com/ to create this API.
 - Designed to be run on Heroku
+  - https://go-insult-generator.herokuapp.com/comeback
