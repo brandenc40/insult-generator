@@ -12,9 +12,15 @@ import (
 )
 
 func main() {
-	insulter := handler.NewInsultGenerator()
 	logger := logging.NewLogger("main")
 	logger.SetLevel(logging.DEBUG)
+
+	insulter, err := handler.NewInsultGenerator()
+	if err != nil {
+		logger.Critical("Unable to build the InsultGenerator handler")
+		logger.Critical(err.Error())
+		return
+	}
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -32,6 +38,6 @@ func main() {
 	router.HandleFunc("/comeback", insulter.GetComeback).Methods("GET")
 	router.HandleFunc("/compliment", insulter.GetCompliment).Methods("GET")
 
-	logger.Debug("Starting app at http://localhost:" + port)
+	logger.Info("Starting app at http://localhost:" + port)
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }

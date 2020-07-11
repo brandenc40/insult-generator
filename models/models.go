@@ -8,8 +8,8 @@ type InsultData struct {
 	Comebacks   []string   `json:"comebacks"`
 }
 
-// ApiResponse is the response returned to the API user
-type ApiResponse struct {
+// APIResponse is the response returned to the API user
+type APIResponse struct {
 	Status  string `json:"status"`
 	Message string `json:"message"`
 }
